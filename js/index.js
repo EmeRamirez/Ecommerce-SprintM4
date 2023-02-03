@@ -10,8 +10,7 @@ let listaCarrito = [];
 let totalFinal;
 
 //Rutas HTML
-checkClaras = document.querySelector('.ch-claras');
-checkOscuras = document.querySelector('.ch-oscuras');
+
 
 //Llama a la función crearCards() una vez que el documento ya está cargado
 $(document).ready(function() {
@@ -52,6 +51,7 @@ function crearCards(){
 function agregarCarrito(opc){
 
     if (listaCarrito.indexOf(productDB[opc]) == -1) {
+        console.log(productDB[opc]);
         listaCarrito.push(productDB[opc]);
     } else {
         let pos = listaCarrito.indexOf(productDB[opc]);
@@ -84,8 +84,8 @@ function renderModal(){
     <div class="lista-carrito">
     <div><img src=${el.img} height="60px"></div>
     <div><h6>${el.nombre}</h6></div>
-    <div><h6>x${el.cantidad}</h6></div>
-    <div><h6>${formatoCL.format(el.precio*el.cantidad)}</h6></div>
+    <div><input id="input-cantidad-${el.id}" class="shopping-cart-quantity-input shoppingCartItemQuantity" onclick="actualizarCant(${el.id})" type="number" value="${el.cantidad}"></input></div>
+    <div>${formatoCL.format(el.precio*el.cantidad)}</div>
     <div onclick=removerProducto(${el.id})><i class="fa-solid fa-trash"></i></div>
     </div>
     `)
@@ -95,44 +95,6 @@ function renderModal(){
 
 }
 
-
-//Funcion para filtrar productos
-function filtrarProductos() {
-    if (checkClaras.checked) {
-        productDB.forEach(el => {
-            if (el.cat!="clara") {
-                render
-                $(`.producto${el.id}`).addClass('d-none');
-            }
-        })
-    };
-
-    if (checkOscuras.checked) {
-        productDB.forEach(el => {
-            if (el.cat!="oscura") {
-                $(`.producto${el.id}`).removeClass('d-none');
-            }
-        })
-    };
-
-    if (checkOscuras.checked) {
-        productDB.forEach(el => {
-            if (el.cat=="clara") {
-                crearCards();
-                $(`.producto${el.id}`).addClass('d-none');
-            }
-        })
-    };
-
-    if (!checkOscuras.checked) {
-        productDB.forEach(el => {
-            if (el.cat=="clara") {
-                crearCards();
-                $(`.producto${el.id}`).removeClass('d-none');
-            }
-        })
-    };
-}
 
 
 //Funcion para vaciar carrito de compras
@@ -178,4 +140,17 @@ function removerProducto(opc) {
     // console.log(listaCarrito);
     calcularMonto();
     renderModal();
+}
+
+//Funcion para actualizar cantidad
+function actualizarCant(opc) {
+
+console.log(`La ID del producto es ${opc}`);
+
+let pos = listaCarrito.indexOf(productDB[opc]); 
+console.log(`La posicion de este producto en el carrito es ${pos}`);
+
+// document.querySelector(`#input-cantidad-${opc}`)
+
+
 }

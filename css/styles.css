@@ -1,3 +1,5 @@
+@import url(carrito.css);
+
 #navbarNav {
     justify-content: space-between;
     margin: 0 2vw;
@@ -23,9 +25,10 @@
 }
 
 .lista-carrito {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 18% 50% 12% 15% 5%;
     align-items: center;
+    padding-bottom: 5px;
 }
 
 .fa-trash:hover{
@@ -38,10 +41,6 @@
     max-width: fit-content;
     justify-content: center;
     display: flex;
-}
-
-.carousel-item img{
-
 }
 
 .modal-footer {
