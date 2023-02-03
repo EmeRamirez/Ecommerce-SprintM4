@@ -1,0 +1,76 @@
+#navbarNav {
+    justify-content: space-between;
+    margin: 0 2vw;
+}
+
+.navbar-brand {
+    margin-left: 2vw;
+}
+
+.modal-footer{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+}
+
+.modal-content {
+    background-color: rgba(46, 41, 41, 0.815);
+    color: wheat;
+}
+
+.btn-warning {
+    color: rgb(65, 64, 63);
+    font-weight: bold;
+}
+
+.lista-carrito {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fa-trash:hover{
+    
+    cursor:pointer;
+    
+}
+
+.carousel-item {
+    max-width: fit-content;
+    justify-content: center;
+    display: flex;
+}
+
+.carousel-item img{
+
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropdown-menu {
+    width: 15vw;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 1.5vw;
+}
+
+.cont-formulario-modal {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap:2vw;
+    padding: 10px 20px;
+    padding-bottom: 25px ;
+}
+
+.cont-formulario-modal input{
+    margin: 1vw;
+}
+
+.btn-pagar-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
