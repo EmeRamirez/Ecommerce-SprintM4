@@ -27,7 +27,7 @@ const productDB = [
         "img": "assets/img/img2.jpg",
         "cantidad": 1,
         "cat": 'clara' ,
-        "stock":10
+        "stock":0
     },
 
     {
@@ -47,7 +47,7 @@ const productDB = [
         "img": "assets/img/img4.jpg",
         "cantidad": 1,
         "cat": 'clara' ,
-        "stock":10
+        "stock":0
     },
 
     {

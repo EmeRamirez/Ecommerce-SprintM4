@@ -1,5 +1,8 @@
 //Variables Globales
 let arrProductos = [];
+let listaCarrito = [];
+let totalFinal;
+let listaCarritoMap;
 
 
 //Funcion para añadir formato CLP a los datos numéricos
@@ -26,6 +29,7 @@ window.addEventListener("load", function(event) {
             arrProductos.setProductos(producto); 
         });
     }
+    listaCarritoMap = arrProductos.getProductos().map(object => ({ ...object }));
     crearCards();
 }); 
 
@@ -43,26 +47,99 @@ function crearCards(){
             $('#contenedor-general').append(`
                 <div class="col mb-5 producto${el.id}" >
                     <div class="card h-100">
-                            <img class="card-img-top" id="img-0" src="${el.img}"/>
+                            <img class="card-img-top img${el.id}" id="img" src="${el.img}"/>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder" id="titulo-0">${el.nombre}</h5>
+                                    <h5 class="fw-bolder" id="titulo">${el.nombre}</h5>
                                     <!-- Product price-->
                                     <p id="precio">${formatoCL.format(el.precio)}</p>
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><button class="btn btn-outline-dark mt-auto" href="#"
+                                <div class="text-center"><button id="boton-ql${el.id}" class="btn btn-outline-dark mt-auto" href="#"
                                         onclick="agregarCarrito(${el.id})">Añadir al Carrito</button></div>
                             </div>
                     </div>
                 </div>
             `);
     });
+
+    arrProductos.getProductos().forEach(el => {
+        if (el.stock < 1) {
+            document.querySelector(`#boton-ql${el.id}`).setAttribute('disabled', true);
+            document.querySelector(`.img${el.id}`).style.filter="grayscale(1)";
+        }
+    })
+ 
 };
+
+//Funcion para agregar productos al carrito
+function agregarCarrito(id){
+    
+    if (listaCarrito.indexOf(listaCarritoMap[id]) == -1) {
+        // console.log(arrProductos.getProductos()[id].nombre);
+        listaCarrito.push(listaCarritoMap[id]);
+    } else {
+        let pos = listaCarrito.indexOf(listaCarritoMap[id]);
+        console.log(`La posicion en el arreglo es ${pos}`);
+        listaCarrito[pos].cantidad++;
+        console.log(`La nueva cantidad es ${listaCarrito[pos].cantidad}`);
+    }
+
+    calcularMonto();
+    renderModal();
+   
+};
+
+
+//Funcion para calcular el total de compra
+function calcularMonto() {
+    totalFinal = 0;
+
+    listaCarrito.forEach(el => {
+        totalFinal = totalFinal + (el.precio*el.cantidad);
+        console.log(`Precio Lista ${el.precio} * Cantidad ${el.cantidad}`);
+        console.log(totalFinal);
+    });
+}
+
+//Funcion para renderizar el carro en el modal
+function renderModal(){
+    $('.resumen-carrito').html('');
+  listaCarrito.forEach(el => {
+    $('.resumen-carrito').append(`
+    <div class="lista-carrito">
+    <div><img src=${el.img} height="60px"></div>
+    <div><h6>${el.nombre}</h6></div>
+    <div><input id="input-cantidad-${el.id}" class="shopping-cart-quantity-input shoppingCartItemQuantity" onclick="actualizarCant(${el.id})" type="number" value="${el.cantidad}"></input></div>
+    <div>${formatoCL.format(el.precio*el.cantidad)}</div>
+    <div onclick=removerProducto(${el.id})><i class="fa-solid fa-trash"></i></div>
+    </div>
+    `)
+  });
+
+  $('#cont-total').html(`Total: ${formatoCL.format(totalFinal)}`);
+}
+
+//Funcion para vaciar carrito de compras
+function vaciarCarrito(){
+    listaCarrito = [];
+
+    calcularMonto();
+    renderModal();
+
+}
+
+
+
+
+
+
+
+
 
 //Funcion para mostrar formulario
 function mostrarForm(){
