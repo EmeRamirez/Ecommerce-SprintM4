@@ -11,6 +11,10 @@ function Producto(id,nombre,precio,img,cat,stock){
 Producto.prototype.setStock = function(stock){
     this.stock = stock;
 }
+
+Producto.prototype.getStock = function(){
+    return this.stock;
+}
    
 Producto.prototype.getCantidad = function(){
     return this.cantidad;
