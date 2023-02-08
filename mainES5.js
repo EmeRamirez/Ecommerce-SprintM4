@@ -87,7 +87,12 @@ function agregarCarrito(id){
     } else {
         let pos = listaCarrito.indexOf(listaCarritoMap[id]);
         console.log(`La posicion en el arreglo es ${pos}`);
-        listaCarrito[pos].cantidad++;
+            if((listaCarrito[pos].cantidad +1)<=(listaCarrito[pos].stock)){
+                listaCarrito[pos].cantidad++;
+            }else{
+                console.log("No se puede agregar más de este producto");  
+            }
+
         console.log(`La nueva cantidad es ${listaCarrito[pos].cantidad}`);
     }
 
@@ -118,7 +123,7 @@ function renderModal(){
     <div><h6>${el.nombre}</h6></div>
     <div><input id="input-cant" class="input-cantidad-${index} shopping-cart-quantity-input shoppingCartItemQuantity" onchange="actualizarCant(${index})" type="number" value="${el.cantidad}"></input></div>
     <div>${formatoCL.format(el.precio*el.cantidad)}</div>
-    <div onclick=removerProducto(${el.id})><i class="fa-solid fa-trash"></i></div>
+    <div onclick=removerProducto(${index})><i class="fa-solid fa-trash"></i></div>
     </div>
     `)
   });
@@ -185,5 +190,26 @@ function actualizarCant(index){
     listaCarrito[index].cantidad = valor;
     calcularMonto();
     renderModal();
+}
+
+
+//Funcion para remover un producto
+async function removerProducto(opc) {
+    console.log(opc);
+    (listaCarrito[opc].cantidad = 1);
+    console.log(`La nueva cantidad de ${listaCarrito[opc].nombre} es ${listaCarrito[opc].cantidad}`);
+    listaCarrito.splice(opc,1);
+    calcularMonto();
+    renderModal();
+}
+
+function ajustarStock(){
+    if(validarForm()){
+        
+        //ACA VA EL CODIGO QUE AJUSTA STOCK
+
+    } else {
+        console.log('llena la wea ctm');
+    }
 }
 
