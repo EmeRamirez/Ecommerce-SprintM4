@@ -5,6 +5,7 @@ let totalFinal;
 let listaCarritoMap;
 
 
+
 //Funcion para añadir formato CLP a los datos numéricos
 const formatoCL = new Intl.NumberFormat("es-CL", {
     style: "currency",
@@ -70,6 +71,7 @@ function crearCards(){
     arrProductos.getProductos().forEach(el => {
         if (el.stock < 1) {
             document.querySelector(`#boton-ql${el.id}`).setAttribute('disabled', true);
+            document.querySelector(`#boton-ql${el.id}`).innerText=("Sin Stock");
             document.querySelector(`.img${el.id}`).style.filter="grayscale(1)";
         }
     })
@@ -109,12 +111,12 @@ function calcularMonto() {
 //Funcion para renderizar el carro en el modal
 function renderModal(){
     $('.resumen-carrito').html('');
-  listaCarrito.forEach(el => {
+  listaCarrito.forEach(function(el,index){
     $('.resumen-carrito').append(`
     <div class="lista-carrito">
     <div><img src=${el.img} height="60px"></div>
     <div><h6>${el.nombre}</h6></div>
-    <div><input id="input-cantidad-${el.id}" class="shopping-cart-quantity-input shoppingCartItemQuantity" onclick="actualizarCant(${el.id})" type="number" value="${el.cantidad}"></input></div>
+    <div><input id="input-cant" class="input-cantidad-${index} shopping-cart-quantity-input shoppingCartItemQuantity" onchange="actualizarCant(${index})" type="number" value="${el.cantidad}"></input></div>
     <div>${formatoCL.format(el.precio*el.cantidad)}</div>
     <div onclick=removerProducto(${el.id})><i class="fa-solid fa-trash"></i></div>
     </div>
@@ -127,16 +129,12 @@ function renderModal(){
 //Funcion para vaciar carrito de compras
 function vaciarCarrito(){
     listaCarrito = [];
+    listaCarritoMap = arrProductos.getProductos().map(object => ({ ...object }));
 
     calcularMonto();
     renderModal();
 
 }
-
-
-
-
-
 
 
 
@@ -166,4 +164,26 @@ function validarForm(){
 
     return estado;
 };  
+
+function actualizarCant(index){
+
+
+    let valor = document.querySelector(`.input-cantidad-${index}`).valueAsNumber;
+    if (valor <= 0){
+        valor = 1 ;
+    } 
+
+    if (valor > listaCarrito[index].stock){
+        valor = listaCarrito[index].stock;
+        document.querySelector('.mensaje-stock').classList.remove('d-none');
+
+        setTimeout(() => {
+            document.querySelector('.mensaje-stock').classList.add('d-none');
+          }, "1500")
+    }
+
+    listaCarrito[index].cantidad = valor;
+    calcularMonto();
+    renderModal();
+}
 

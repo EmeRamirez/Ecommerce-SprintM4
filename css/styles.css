@@ -73,3 +73,16 @@
     justify-content: center;
     align-items: center;
 }
+
+.card-img-top:hover{
+    scale: 108%;
+}
+
+.mensaje-stock{
+    font-size: 0.8rem;
+    color: rgb(224, 107, 107);
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2vw;
+}
+
