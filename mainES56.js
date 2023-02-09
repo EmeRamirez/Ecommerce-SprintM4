@@ -16,41 +16,41 @@ const formatoCL = new Intl.NumberFormat("es-CL", {
 
 
 //Al cargar la página añade la tienda al arreglo y le inserta los productos
-$(document).ready(function() {
-    
+$(document).ready(function () {
+
     arrProductos = new Tienda('Tienda');
 
-    if (JSON.parse(localStorage.getItem("arr-carrito")) != null){
+    if (JSON.parse(localStorage.getItem("arr-carrito")) != null) {
         listaCarrito = JSON.parse(localStorage.getItem("arr-carrito"));
-    } 
+    }
 
-    if (JSON.parse(localStorage.getItem("arr-database")) != null){
+    if (JSON.parse(localStorage.getItem("arr-database")) != null) {
         productDB = JSON.parse(localStorage.getItem("arr-database"));
-    } 
-    
+    }
+
 
 
     productDB.forEach(el => {
-        let producto = new Producto(el.id,el.nombre,el.precio,el.img,el.cat,el.stock);
-        arrProductos.setProductos(producto); 
+        let producto = new Producto(el.id, el.nombre, el.precio, el.img, el.cat, el.stock);
+        arrProductos.setProductos(producto);
     });
 
     listaCarritoMap = arrProductos.getProductos().map(object => ({ ...object }));
     crearCards();
     calcularMonto();
     renderModal();
-}); 
+});
 
 
 
 //Esta función respalda la variable local arrProductos en Local Storage
-function respaldoLocal(){  
-    localStorage.setItem('arr-carrito',JSON.stringify(listaCarrito));   
-    localStorage.setItem('arr-database',JSON.stringify(productDB));
+function respaldoLocal() {
+    localStorage.setItem('arr-carrito', JSON.stringify(listaCarrito));
+    localStorage.setItem('arr-database', JSON.stringify(productDB));
 }
 
 //Funcion para crear las cartas de la tienda
-function crearCards(){
+function crearCards() {
 
     arrProductos.getProductos().forEach(el => {
         $('#contenedor-general').append(`
@@ -76,40 +76,40 @@ function crearCards(){
             </div>
         `);
 
-        switch (true){
+        switch (true) {
             case (el.stock == 0):
                 document.querySelector(`#boton-ql${el.id}`).setAttribute('disabled', true);
-                document.querySelector(`#boton-ql${el.id}`).innerText=("Sin Stock");
-                document.querySelector(`.img${el.id}`).style.filter="grayscale(1)";
+                document.querySelector(`#boton-ql${el.id}`).innerText = ("Sin Stock");
+                document.querySelector(`.img${el.id}`).style.filter = "grayscale(1)";
                 break;
             case (el.stock == 1):
-                document.querySelector(`#stock${el.id}`).innerText=("¡Última unidad!");
-                document.querySelector(`#stock${el.id}`).style.color="rgb(224, 107, 107)";
+                document.querySelector(`#stock${el.id}`).innerText = ("¡Última unidad!");
+                document.querySelector(`#stock${el.id}`).style.color = "rgb(224, 107, 107)";
                 break;
             case (el.stock <= 4):
-                document.querySelector(`#stock${el.id}`).innerText=(`¡Últimas ${el.stock} unidades`);
-                document.querySelector(`#stock${el.id}`).style.color="rgb(224, 107, 107)";
+                document.querySelector(`#stock${el.id}`).innerText = (`¡Últimas ${el.stock} unidades`);
+                document.querySelector(`#stock${el.id}`).style.color = "rgb(224, 107, 107)";
                 break;
         }
 
     });
- 
+
 };
 
 //Funcion para agregar productos al carrito
-function agregarCarrito(id){
-    
+function agregarCarrito(id) {
+
     if (listaCarrito.indexOf(listaCarritoMap[id]) == -1) {
         // console.log(arrProductos.getProductos()[id].nombre);
         listaCarrito.push(listaCarritoMap[id]);
     } else {
         let pos = listaCarrito.indexOf(listaCarritoMap[id]);
         console.log(`La posicion en el arreglo es ${pos}`);
-            if((listaCarrito[pos].cantidad +1)<=(listaCarrito[pos].stock)){
-                listaCarrito[pos].cantidad++;
-            }else{
-                console.log("No se puede agregar más de este producto");  
-            }
+        if ((listaCarrito[pos].cantidad + 1) <= (listaCarrito[pos].stock)) {
+            listaCarrito[pos].cantidad++;
+        } else {
+            console.log("No se puede agregar más de este producto");
+        }
 
         console.log(`La nueva cantidad es ${listaCarrito[pos].cantidad}`);
     }
@@ -117,7 +117,7 @@ function agregarCarrito(id){
     calcularMonto();
     respaldoLocal();
     renderModal();
-   
+
 };
 
 
@@ -126,32 +126,32 @@ function calcularMonto() {
     totalFinal = 0;
 
     listaCarrito.forEach(el => {
-        totalFinal = totalFinal + (el.precio*el.cantidad);
+        totalFinal = totalFinal + (el.precio * el.cantidad);
         console.log(`Precio Lista ${el.precio} * Cantidad ${el.cantidad}`);
         console.log(totalFinal);
     });
 }
 
 //Funcion para renderizar el carro en el modal
-function renderModal(){
+function renderModal() {
     $('.resumen-carrito').html('');
-  listaCarrito.forEach(function(el,index){
-    $('.resumen-carrito').append(`
+    listaCarrito.forEach(function (el, index) {
+        $('.resumen-carrito').append(`
     <div class="lista-carrito">
     <div><img src=${el.img} height="60px"></div>
     <div><h6>${el.nombre}</h6></div>
     <div><input id="input-cant" class="input-cantidad-${index} shopping-cart-quantity-input shoppingCartItemQuantity" onchange="actualizarCant(${index})" type="number" value="${el.cantidad}"></input></div>
-    <div>${formatoCL.format(el.precio*el.cantidad)}</div>
+    <div>${formatoCL.format(el.precio * el.cantidad)}</div>
     <div onclick=removerProducto(${index})><i class="fa-solid fa-trash"></i></div>
     </div>
     `)
-  });
+    });
 
-  $('#cont-total').html(`Total: ${formatoCL.format(totalFinal)}`);
+    $('#cont-total').html(`Total: ${formatoCL.format(totalFinal)}`);
 }
 
 //Funcion para vaciar carrito de compras
-function vaciarCarrito(){
+function vaciarCarrito() {
     listaCarrito = [];
     listaCarritoMap = arrProductos.getProductos().map(object => ({ ...object }));
 
@@ -165,22 +165,22 @@ function vaciarCarrito(){
 
 
 //Funcion para mostrar formulario
-function mostrarForm(){
+function mostrarForm() {
     $('.cont-formulario-modal').removeClass('d-none');
 }
 
-function ocultarForm(){
+function ocultarForm() {
     $('.cont-formulario-modal').addClass('d-none');
 }
 
 //Funcion para validar Form
-function validarForm(){
+function validarForm() {
     const forms = document.querySelectorAll('.needs-validation');
 
-    let estado = false; 
+    let estado = false;
 
     forms.forEach(form => {
-        if (form.checkValidity()) { 
+        if (form.checkValidity()) {
             estado = true;
         };
 
@@ -188,23 +188,23 @@ function validarForm(){
     });
 
     return estado;
-};  
+};
 
-function actualizarCant(index){
+function actualizarCant(index) {
 
 
     let valor = document.querySelector(`.input-cantidad-${index}`).valueAsNumber;
-    if (valor <= 0){
-        valor = 1 ;
-    } 
+    if (valor <= 0) {
+        valor = 1;
+    }
 
-    if (valor > listaCarrito[index].stock){
+    if (valor > listaCarrito[index].stock) {
         valor = listaCarrito[index].stock;
         document.querySelector('.mensaje-stock').classList.remove('d-none');
 
         setTimeout(() => {
             document.querySelector('.mensaje-stock').classList.add('d-none');
-          }, "1500")
+        }, 1500)
     }
 
     listaCarrito[index].cantidad = valor;
@@ -218,17 +218,17 @@ function actualizarCant(index){
 //Funcion para remover un producto
 function removerProducto(opc) {
     (listaCarrito[opc].cantidad = 1);
-    listaCarrito.splice(opc,1);
+    listaCarrito.splice(opc, 1);
     respaldoLocal();
     calcularMonto();
     renderModal();
 }
 
-function ajustarStock(){
-    arrProductos.getProductos().forEach(el =>{
-        listaCarrito.forEach(elem =>{
+function ajustarStock() {
+    arrProductos.getProductos().forEach(el => {
+        listaCarrito.forEach(elem => {
             if (el.id == elem.id) {
-                el.setStock(elem.stock-elem.cantidad);
+                el.setStock(elem.stock - elem.cantidad);
                 elem.stock = el.getStock();
             };
         })
@@ -236,45 +236,48 @@ function ajustarStock(){
 }
 
 //Esta función actualiza el stock del arreglo BD
-function pagar(){
-    if (!listaCarrito.length == 0){
-        if(validarForm()){
+function pagar() {
+    if (!listaCarrito.length == 0) {
+        if (validarForm()) {
             ajustarStock();
             productDB = arrProductos.getProductos();
             enviarMail();
             listaCarrito = [];
             respaldoLocal();
+            setTimeout(() => {
+                document.location.reload()
+            }, 3000);
         } else {
             document.querySelector('#requerido').classList.remove('d-none');
             setTimeout(() => {
                 document.querySelector('#requerido').classList.add('d-none');
-            }, "1500")
+            }, 1000)
         }
     } else {
         alert('Debe añadir al menos un producto al carro');
     }
-        
+
 }
 
 function enviarMail() {
-   
+
     let prodSinStock = '';
-    arrProductos.getProductos().forEach(el =>{
-        if (el.stock == 0){
+    arrProductos.getProductos().forEach(el => {
+        if (el.stock == 0) {
             prodSinStock = prodSinStock + `<li>${el.nombre}</li>`
         }
     })
     console.log(prodSinStock);
 
-        var params = {
-            from_name : "The Chela Store",
-            email_id : "ventas@thechelastore.com",
-            arrsinstock : prodSinStock
-        }
-        emailjs.send("pago_stock", "template_gj4475e", params).then(function (res) {
-            console.log('Mail enviado' + res.status);
-            alert('Email Enviado! (Esto debería ser un modal más bonito jaja');
-        });
+    var params = {
+        from_name: "The Chela Store",
+        email_id: "ventas@thechelastore.com",
+        arrsinstock: prodSinStock
+    }
+    emailjs.send("pago_stock", "template_gj4475e", params).then(function (res) {
+        console.log('Mail enviado' + res.status);
+        alert('Email Enviado! (Esto debería ser un modal más bonito jaja');
+    });
 };
 
 
