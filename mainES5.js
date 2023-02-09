@@ -16,65 +16,83 @@ const formatoCL = new Intl.NumberFormat("es-CL", {
 
 
 //Al cargar la página añade la tienda al arreglo y le inserta los productos
-window.addEventListener("load", function(event) {
+$(document).ready(function() {
     
     arrProductos = new Tienda('Tienda');
 
+    if (JSON.parse(localStorage.getItem("arr-carrito")) != null){
+        listaCarrito = JSON.parse(localStorage.getItem("arr-carrito"));
+    } 
 
-    if (JSON.parse(localStorage.getItem("arr-productos")) != null){
-        arrProductos = JSON.parse(localStorage.getItem("arr-productos"));
-        } else {
+    if (JSON.parse(localStorage.getItem("arr-database")) != null){
+        productDB = JSON.parse(localStorage.getItem("arr-database"));
+    } 
+    
 
-        productDB.forEach(el => {
-            let producto = new Producto(el.id,el.nombre,el.precio,el.img,el.cat,el.stock);
-            arrProductos.setProductos(producto); 
-        });
-    }
+
+    productDB.forEach(el => {
+        let producto = new Producto(el.id,el.nombre,el.precio,el.img,el.cat,el.stock);
+        arrProductos.setProductos(producto); 
+    });
+
     listaCarritoMap = arrProductos.getProductos().map(object => ({ ...object }));
     crearCards();
+    calcularMonto();
+    renderModal();
 }); 
 
 
 
 //Esta función respalda la variable local arrProductos en Local Storage
-function respaldoLocal(){
-    localStorage.setItem('arr-productos',JSON.stringify(arrProductos));   
+function respaldoLocal(){  
+    localStorage.setItem('arr-carrito',JSON.stringify(listaCarrito));   
+    localStorage.setItem('arr-database',JSON.stringify(productDB));
 }
 
 //Funcion para crear las cartas de la tienda
 function crearCards(){
 
     arrProductos.getProductos().forEach(el => {
-            $('#contenedor-general').append(`
-                <div class="col mb-5 producto${el.id}" >
-                    <div class="card h-100">
-                            <img class="card-img-top img${el.id}" id="img" src="${el.img}"/>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder" id="titulo">${el.nombre}</h5>
-                                    <!-- Product price-->
-                                    <p id="precio">${formatoCL.format(el.precio)}</p>
-                                </div>
+        $('#contenedor-general').append(`
+            <div class="col mb-5 producto${el.id}" >
+                <div class="card h-100">
+                        <img class="card-img-top img${el.id}" id="img" src="${el.img}"/>
+                        <!-- Product details-->
+                        <div class="card-body p-3">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder" id="titulo">${el.nombre}</h5>                          
                             </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><button id="boton-ql${el.id}" class="btn btn-outline-dark mt-auto" href="#"
-                                        onclick="agregarCarrito(${el.id})">Añadir al Carrito</button></div>
-                            </div>
-                    </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <!-- Product price-->
+                        <p id="precio">${formatoCL.format(el.precio)}</p>    
+                        <p id="stock${el.id}" class="stock">Stock: ${el.stock}</p> 
+                            <div class="text-center"><button id="boton-ql${el.id}" class="btn btn-outline-dark mt-auto" href="#"
+                                    onclick="agregarCarrito(${el.id})">Añadir al Carrito</button></div>
+                        </div>
                 </div>
-            `);
-    });
+            </div>
+        `);
 
-    arrProductos.getProductos().forEach(el => {
-        if (el.stock < 1) {
-            document.querySelector(`#boton-ql${el.id}`).setAttribute('disabled', true);
-            document.querySelector(`#boton-ql${el.id}`).innerText=("Sin Stock");
-            document.querySelector(`.img${el.id}`).style.filter="grayscale(1)";
+        switch (true){
+            case (el.stock == 0):
+                document.querySelector(`#boton-ql${el.id}`).setAttribute('disabled', true);
+                document.querySelector(`#boton-ql${el.id}`).innerText=("Sin Stock");
+                document.querySelector(`.img${el.id}`).style.filter="grayscale(1)";
+                break;
+            case (el.stock == 1):
+                document.querySelector(`#stock${el.id}`).innerText=("¡Última unidad!");
+                document.querySelector(`#stock${el.id}`).style.color="rgb(224, 107, 107)";
+                break;
+            case (el.stock <= 4):
+                document.querySelector(`#stock${el.id}`).innerText=(`¡Últimas ${el.stock} unidades`);
+                document.querySelector(`#stock${el.id}`).style.color="rgb(224, 107, 107)";
+                break;
         }
-    })
+
+    });
  
 };
 
@@ -97,6 +115,7 @@ function agregarCarrito(id){
     }
 
     calcularMonto();
+    respaldoLocal();
     renderModal();
    
 };
@@ -136,6 +155,7 @@ function vaciarCarrito(){
     listaCarrito = [];
     listaCarritoMap = arrProductos.getProductos().map(object => ({ ...object }));
 
+    respaldoLocal();
     calcularMonto();
     renderModal();
 
@@ -188,28 +208,73 @@ function actualizarCant(index){
     }
 
     listaCarrito[index].cantidad = valor;
+
+    respaldoLocal();
     calcularMonto();
     renderModal();
 }
 
 
 //Funcion para remover un producto
-async function removerProducto(opc) {
-    console.log(opc);
+function removerProducto(opc) {
     (listaCarrito[opc].cantidad = 1);
-    console.log(`La nueva cantidad de ${listaCarrito[opc].nombre} es ${listaCarrito[opc].cantidad}`);
     listaCarrito.splice(opc,1);
+    respaldoLocal();
     calcularMonto();
     renderModal();
 }
 
 function ajustarStock(){
-    if(validarForm()){
-        
-        //ACA VA EL CODIGO QUE AJUSTA STOCK
-
-    } else {
-        console.log('llena la wea ctm');
-    }
+    arrProductos.getProductos().forEach(el =>{
+        listaCarrito.forEach(elem =>{
+            if (el.id == elem.id) {
+                el.setStock(elem.stock-elem.cantidad);
+                elem.stock = el.getStock();
+            };
+        })
+    })
 }
+
+//Esta función actualiza el stock del arreglo BD
+function pagar(){
+    if (!listaCarrito.length == 0){
+        if(validarForm()){
+            ajustarStock();
+            productDB = arrProductos.getProductos();
+            enviarMail();
+            listaCarrito = [];
+            respaldoLocal();
+        } else {
+            document.querySelector('#requerido').classList.remove('d-none');
+            setTimeout(() => {
+                document.querySelector('#requerido').classList.add('d-none');
+            }, "1500")
+        }
+    } else {
+        alert('Debe añadir al menos un producto al carro');
+    }
+        
+}
+
+function enviarMail() {
+   
+    let prodSinStock = '';
+    arrProductos.getProductos().forEach(el =>{
+        if (el.stock == 0){
+            prodSinStock = prodSinStock + `<li>${el.nombre}</li>`
+        }
+    })
+    console.log(prodSinStock);
+
+        var params = {
+            from_name : "The Chela Store",
+            email_id : "ventas@thechelastore.com",
+            arrsinstock : prodSinStock
+        }
+        emailjs.send("pago_stock", "template_gj4475e", params).then(function (res) {
+            console.log('Mail enviado' + res.status);
+            alert('Email Enviado! (Esto debería ser un modal más bonito jaja');
+        });
+};
+
 

@@ -86,3 +86,15 @@
     padding-bottom: 2vw;
 }
 
+.stock, #precio {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+#requerido {
+    display: flex;
+    justify-content: center;
+    color: rgb(224, 107, 107);
+    padding-left: 1.2vw;
+}

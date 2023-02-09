@@ -10,8 +10,15 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-
     <script src="https://kit.fontawesome.com/9bf55c7eb1.js" crossorigin="anonymous"></script>
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+</script>
+<script type="text/javascript">
+    (function(){
+        emailjs.init("udxHcLdMJzRYLUe_w");
+    })();
+</script>
 
 
 </head>
@@ -83,10 +90,11 @@
               <input type="text" class="form-control" id="form-fono" placeholder="Teléfono" required>
               <input type="text" class="form-control" id="form-email" placeholder="Email" required>
               <input type="text" class="form-control" id="form-direccion" placeholder="Direccion" required>
+              <p id="requerido" class="d-none">Debe completar los campos requeridos</p>
             </form>
           </div>
           <div class="btn-pagar-modal">
-            <button class="btn btn-warning boton-form" onclick="ajustarStock()">Pagar</button>
+            <button class="btn btn-warning boton-form" onclick="pagar()">Pagar</button>
           </div>  
         </div>
       </div>
