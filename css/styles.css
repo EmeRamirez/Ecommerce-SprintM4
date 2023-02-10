@@ -1,3 +1,7 @@
+@import url(carrito.css);
+@import url(admin.css);
+
+
 #navbarNav {
     justify-content: space-between;
     margin: 0 2vw;
@@ -23,9 +27,10 @@
 }
 
 .lista-carrito {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 18% 50% 12% 15% 5%;
     align-items: center;
+    padding-bottom: 5px;
 }
 
 .fa-trash:hover{
@@ -38,10 +43,6 @@
     max-width: fit-content;
     justify-content: center;
     display: flex;
-}
-
-.carousel-item img{
-
 }
 
 .modal-footer {
@@ -74,3 +75,29 @@
     justify-content: center;
     align-items: center;
 }
+
+.card-img-top:hover{
+    scale: 108%;
+}
+
+.mensaje-stock{
+    font-size: 0.8rem;
+    color: rgb(224, 107, 107);
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2vw;
+}
+
+.stock, #precio {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+#requerido {
+    display: flex;
+    justify-content: center;
+    color: rgb(224, 107, 107);
+    padding-left: 1.2vw;
+}
+

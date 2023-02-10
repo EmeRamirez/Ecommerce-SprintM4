@@ -1,12 +1,13 @@
 
-const productDB = [
+let productDB = [
     {
         "id": 0,
         "nombre": "Hasta Pronto Micro Dosis",
         "precio": 4200,
         "img": "assets/img/img0.webp",
         "cantidad": 1,
-        "cat": 'clara' 
+        "cat": 'clara',
+        "stock":10
     },
 
     {
@@ -15,7 +16,8 @@ const productDB = [
         "precio": 4800,
         "img": "assets/img/img1.webp",
         "cantidad": 1,
-        "cat": 'clara' 
+        "cat": 'clara' ,
+        "stock":10
     },
 
     {
@@ -24,7 +26,8 @@ const productDB = [
         "precio": 4500,
         "img": "assets/img/img2.jpg",
         "cantidad": 1,
-        "cat": 'clara' 
+        "cat": 'clara' ,
+        "stock":10
     },
 
     {
@@ -33,7 +36,8 @@ const productDB = [
         "precio": 3800,
         "img": "assets/img/img3.jpg",
         "cantidad": 1,
-        "cat": 'clara' 
+        "cat": 'clara' ,
+        "stock":10
     },
 
     {
@@ -42,7 +46,8 @@ const productDB = [
         "precio": 3400,
         "img": "assets/img/img4.jpg",
         "cantidad": 1,
-        "cat": 'clara' 
+        "cat": 'clara' ,
+        "stock":10
     },
 
     {
@@ -51,7 +56,8 @@ const productDB = [
         "precio": 4100,
         "img": "assets/img/img5.webp",
         "cantidad": 1,
-        "cat": 'oscura' 
+        "cat": 'oscura' ,
+        "stock":10
     },
 
     {
@@ -60,7 +66,8 @@ const productDB = [
         "precio": 5000,
         "img": "assets/img/img6.webp",
         "cantidad": 1,
-        "cat": 'oscura'
+        "cat": 'oscura',
+        "stock":10
     },
     {
         "id": 7,
@@ -68,7 +75,10 @@ const productDB = [
         "precio": 2800,
         "img": "assets/img/img7.webp",
         "cantidad": 1,
-        "cat": 'oscura' 
+        "cat": 'oscura' ,
+        "stock":10
     },
-
 ];
+
+//============================================================
+
