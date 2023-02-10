@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,117 +10,121 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <script src="https://kit.fontawesome.com/9bf55c7eb1.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/9bf55c7eb1.js"
+      crossorigin="anonymous"></script>
     <script type="text/javascript"
-    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
 </script>
-<script type="text/javascript">
+    <script type="text/javascript">
     (function(){
         emailjs.init("udxHcLdMJzRYLUe_w");
     })();
 </script>
-
-
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index.html"><img src="assets/img/logo.png" alt=""></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <div id="menu-nav">
-                <ul class="navbar-nav">
-                  <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle d-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Filtrar Tienda
-                    </button>
-                    <ul class="dropdown-menu">
-                        <div class="form-check">
-                          <input type="checkbox" onchange="filtrarProductos()" class="form-check-input ch-claras" id="claras">
-                          <label class="form-check-label" for="claras">Cervezas Claras</label>
-                        </div>
-                        <div class="form-check">
-                          <input type="checkbox" onchange="filtrarProductos()" class="form-check-input ch-oscuras" id="oscuras">
-                          <label class="form-check-label" for="oscuras">
-                            Cervezas Oscuras
-                          </label>
-                        </div>
-                    </ul>
-                  </div>
-                </ul>
-            </div>
-            <div>
-                <!--Boton Modal-->
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                </button>
-            </div>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark"
+      data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html"><img src="assets/img/logo.png"
+            alt=""></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="collection-sort">
+            <label>Filter by:</label>
+            <select id="list" onchange="getSelectedValue()">
+              <option selected="selected">Selecciona un producto</option>
+              <option value="clara">Claras</option>
+              <option value="oscura">Oscuras</option>
+            </select>
           </div>
-        </div>
-      </nav>
-
-      <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Resumen de tu Compra</h1>
-          <button type="button" class="btn-close" onclick="ocultarForm()" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body resumen-carrito">
-          <!-- AQUI SE VAN AGREGANDO LOS PRODUCTOS DEL CARRO -->
-        </div>
-        <div class="mensaje-stock d-none">No hay suficientes productos en stock</div>
-
-        <div class="modal-footer">
-            <div id="totales-modal">
-                <h4 id="cont-total">Total:</h4>
-            </div>
-            <div>
-              <button type="button" class="btn btn-danger" onclick="vaciarCarrito()"><i class="fa-solid fa-trash"></i></button>
-              <button type="button" onclick="mostrarForm()" class="btn btn-warning">Continuar</button>
-            </div>
-        </div>
-        <div class="cont-formulario-modal d-none" novalidate>
           <div>
-            <form action="" class="needs-validation">
-              <input type="text" class="form-control" id="form-nombre" placeholder="Nombre" required>
-              <input type="text" class="form-control" id="form-fono" placeholder="Teléfono" required>
-              <input type="text" class="form-control" id="form-email" placeholder="Email" required>
-              <input type="text" class="form-control" id="form-direccion" placeholder="Direccion" required>
-              <p id="requerido" class="d-none">Debe completar los campos requeridos</p>
-            </form>
+            <!--Boton Modal-->
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+              data-bs-target="#exampleModal">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </button>
           </div>
-          <div class="btn-pagar-modal">
-            <button class="btn btn-warning boton-form" onclick="pagar()">Pagar</button>
-          </div>  
+        </div>
+      </div>
+    </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Resumen de tu
+              Compra</h1>
+            <button type="button" class="btn-close" onclick="ocultarForm()"
+              data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body resumen-carrito">
+            <!-- AQUI SE VAN AGREGANDO LOS PRODUCTOS DEL CARRO -->
+          </div>
+          <div class="mensaje-stock d-none">No hay suficientes productos en
+            stock</div>
+
+          <div class="modal-footer">
+            <div id="totales-modal">
+              <h4 id="cont-total">Total:</h4>
+            </div>
+            <div>
+              <button type="button" class="btn btn-danger"
+                onclick="vaciarCarrito()"><i class="fa-solid fa-trash"></i></button>
+              <button type="button" onclick="mostrarForm()" class="btn
+                btn-warning">Continuar</button>
+            </div>
+          </div>
+          <div class="cont-formulario-modal d-none" novalidate>
+            <div>
+              <form action="" class="needs-validation">
+                <input type="text" class="form-control" id="form-nombre"
+                  placeholder="Nombre" required>
+                <input type="text" class="form-control" id="form-fono"
+                  placeholder="Teléfono" required>
+                <input type="text" class="form-control" id="form-email"
+                  placeholder="Email" required>
+                <input type="text" class="form-control" id="form-direccion"
+                  placeholder="Direccion" required>
+                <p id="requerido" class="d-none">Debe completar los campos
+                  requeridos</p>
+              </form>
+            </div>
+            <div class="btn-pagar-modal">
+              <button class="btn btn-warning boton-form" onclick="pagar()">Pagar</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <main>
- 
-  <section class="py-5 seccion-tienda">
-      <div class="container px-4 px-lg-5 mt-5">
-          <div id="contenedor-general" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-          
+    <main>
+
+      <section class="py-5 seccion-tienda">
+        <div class="container px-4 px-lg-5 mt-5">
+          <div id="contenedor-general" class="row gx-4 gx-lg-5 row-cols-2
+            row-cols-md-3 row-cols-xl-4 justify-content-center">
+
 
 
           </div>
-      </div>
+        </div>
 
-    </main>
-     
-    
+      </main>
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
       <script src="js/lib/jquery-3.6.3.min.js"></script>
       <script src="js/bd.js"></script>
       <script src="TiendaES6.js"></script>
       <script src="ProductoES6.js"></script>
       <script src="mainES56.js"></script>
-</body>
-</html>
+    </body>
+  </html>

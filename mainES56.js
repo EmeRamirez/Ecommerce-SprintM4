@@ -54,7 +54,7 @@ function crearCards() {
 
     tienda.getProductos().forEach(el => {
         $('#contenedor-general').append(`
-            <div class="col mb-5 producto${el.id}" >
+            <div class="col mb-5 producto${el.id} ${el.cat} filtro-input" >
                 <div class="card h-100">
                         <img class="card-img-top img${el.id}" id="img" src="${el.img}"/>
                         <!-- Product details-->
@@ -280,4 +280,20 @@ function enviarMail() {
     });
 };
 
-
+function getSelectedValue() {
+    const selectValue = document.getElementById("list").value;
+    const acceptedValues = ['clara', 'oscura'];
+    const productCards = document.querySelectorAll('.filtro-input');
+  
+    productCards.forEach(card => {
+      if(acceptedValues.includes(selectValue)) {
+        if(card.classList.contains(selectValue)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      } else {
+        card.style.display = 'block';
+      }
+    })
+  }
