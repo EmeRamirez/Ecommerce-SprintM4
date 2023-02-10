@@ -1,4 +1,6 @@
 @import url(carrito.css);
+@import url(admin.css);
+
 
 #navbarNav {
     justify-content: space-between;
@@ -98,3 +100,4 @@
     color: rgb(224, 107, 107);
     padding-left: 1.2vw;
 }
+

@@ -1,5 +1,5 @@
 //Variables Globales
-let arrProductos = [];
+let tienda = [];
 let listaCarrito = [];
 let totalFinal;
 let listaCarritoMap;
@@ -17,8 +17,8 @@ const formatoCL = new Intl.NumberFormat("es-CL", {
 
 //Al cargar la página añade la tienda al arreglo y le inserta los productos
 $(document).ready(function () {
-
-    arrProductos = new Tienda('Tienda');
+    
+    tienda = new Tienda('Tienda');
 
     if (JSON.parse(localStorage.getItem("arr-carrito")) != null) {
         listaCarrito = JSON.parse(localStorage.getItem("arr-carrito"));
@@ -32,10 +32,10 @@ $(document).ready(function () {
 
     productDB.forEach(el => {
         let producto = new Producto(el.id, el.nombre, el.precio, el.img, el.cat, el.stock);
-        arrProductos.setProductos(producto);
+        tienda.setProductos(producto);
     });
 
-    listaCarritoMap = arrProductos.getProductos().map(object => ({ ...object }));
+    listaCarritoMap = tienda.getProductos().map(object => ({ ...object }));
     crearCards();
     calcularMonto();
     renderModal();
@@ -43,7 +43,7 @@ $(document).ready(function () {
 
 
 
-//Esta función respalda la variable local arrProductos en Local Storage
+//Esta función respalda la variable local tienda en Local Storage
 function respaldoLocal() {
     localStorage.setItem('arr-carrito', JSON.stringify(listaCarrito));
     localStorage.setItem('arr-database', JSON.stringify(productDB));
@@ -52,7 +52,7 @@ function respaldoLocal() {
 //Funcion para crear las cartas de la tienda
 function crearCards() {
 
-    arrProductos.getProductos().forEach(el => {
+    tienda.getProductos().forEach(el => {
         $('#contenedor-general').append(`
             <div class="col mb-5 producto${el.id}" >
                 <div class="card h-100">
@@ -100,7 +100,7 @@ function crearCards() {
 function agregarCarrito(id) {
 
     if (listaCarrito.indexOf(listaCarritoMap[id]) == -1) {
-        // console.log(arrProductos.getProductos()[id].nombre);
+        // console.log(tienda.getProductos()[id].nombre);
         listaCarrito.push(listaCarritoMap[id]);
     } else {
         let pos = listaCarrito.indexOf(listaCarritoMap[id]);
@@ -153,7 +153,7 @@ function renderModal() {
 //Funcion para vaciar carrito de compras
 function vaciarCarrito() {
     listaCarrito = [];
-    listaCarritoMap = arrProductos.getProductos().map(object => ({ ...object }));
+    listaCarritoMap = tienda.getProductos().map(object => ({ ...object }));
 
     respaldoLocal();
     calcularMonto();
@@ -225,7 +225,7 @@ function removerProducto(opc) {
 }
 
 function ajustarStock() {
-    arrProductos.getProductos().forEach(el => {
+    tienda.getProductos().forEach(el => {
         listaCarrito.forEach(elem => {
             if (el.id == elem.id) {
                 el.setStock(elem.stock - elem.cantidad);
@@ -240,7 +240,7 @@ function pagar() {
     if (!listaCarrito.length == 0) {
         if (validarForm()) {
             ajustarStock();
-            productDB = arrProductos.getProductos();
+            productDB = tienda.getProductos();
             enviarMail();
             listaCarrito = [];
             respaldoLocal();
@@ -262,7 +262,7 @@ function pagar() {
 function enviarMail() {
 
     let prodSinStock = '';
-    arrProductos.getProductos().forEach(el => {
+    tienda.getProductos().forEach(el => {
         if (el.stock == 0) {
             prodSinStock = prodSinStock + `<li>${el.nombre}</li>`
         }

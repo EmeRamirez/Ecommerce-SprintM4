@@ -1,0 +1,70 @@
+.control-panel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 6vw;
+}
+
+.modal-editar{
+    max-width: 60vw;
+}
+
+.seccion-tienda-admin{
+    padding-top: 0 !important;
+}
+
+.form-editar-prod{
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.cont-edicion-productos{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 1.5vw;
+}
+
+.cont-info-producto{
+    margin: 1vw 1.5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.info-producto{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.seccion-info-producto{
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1vw;
+    text-align: center;
+}
+
+.form-edit{
+    width: 25vw;
+}
+
+.modal-agregar{
+    max-width: 80vw;
+}
+
+.card-ejemplo{
+    max-width: fit-content;
+    max-height: fit-content;
+    color: black;
+}
+
+.cont-card-ejemplo{
+    display: flex;
+    justify-content: center;
+    padding-top: 2vw;
+}
