@@ -265,19 +265,24 @@ function enviarMail() {
     tienda.getProductos().forEach(el => {
         if (el.stock == 0) {
             prodSinStock = prodSinStock + `<li>${el.nombre}</li>`
-        }
-    })
-    console.log(prodSinStock);
 
-    var params = {
-        from_name: "The Chela Store",
-        email_id: "ventas@thechelastore.com",
-        arrsinstock: prodSinStock
-    }
-    emailjs.send("pago_stock", "template_gj4475e", params).then(function (res) {
-        console.log('Mail enviado' + res.status);
-        alert('Email Enviado! (Esto debería ser un modal más bonito jaja');
-    });
+            var params = {
+                from_name: "The Chela Store",
+                email_id: "ventas@thechelastore.com",
+                arrsinstock: prodSinStock
+            }
+            emailjs.send("pago_stock", "template_gj4475e", params).then(function (res) {
+                console.log('Mail enviado' + res.status);
+                alert('Email Enviado! (Esto debería ser un modal más bonito jaja');
+            });
+            
+        } else {
+            console.log('No hay productos sin stock');
+        }
+
+       
+    })
+     
 };
 
 function getSelectedValue() {

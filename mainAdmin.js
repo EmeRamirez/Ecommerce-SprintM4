@@ -64,7 +64,7 @@ function respaldoDB() {
 function crearCards(arr) {
     $('#contenedor-general').html('');
 
-    arr.forEach(el => {
+    arr.forEach(function(el,index) {
         $('#contenedor-general').append(`
             <div class="col mb-5 producto${el.id}" >
                 <div class="card h-100">
@@ -81,8 +81,9 @@ function crearCards(arr) {
                         <!-- Product price-->
                         <p id="precio">${formatoCL.format(el.precio)}</p>    
                         <p id="stock${el.id}" class="stock">Stock: ${el.stock}</p> 
-                            <div class="text-center"><button id="boton-ql${el.id}" class="btn btn-warning mt-auto" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#"
-                                    onclick="editarProducto(${el.id})">Editar Producto</button></div>
+                            <div class="text-center botones-card"><button id="boton-ql${el.id}" class="btn btn-warning mt-auto" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#"
+                                    onclick="editarProducto(${el.id})">Editar</button><button type="button" class="btn btn-danger"
+                                    onclick="eliminarProductoDB(${index})"><i class="fa-solid fa-trash"></i></button></div>
                         </div>
                 </div>
             </div>
@@ -167,16 +168,36 @@ function modificarProducto(id){
 
 function renderNuevoEjemplo(){
    if(validarForm()){
-    console.log('se renderiza el ejemplo');
-   }
+        newprodID.value=(`${productDB.length}`);
+        document.querySelector('#nombre-ejemplo').innerText=(`${newprodNombre.value}`);
+        document.querySelector('#precio-ejemplo').innerText=(`${formatoCL.format(newprodPrecio.value*1)}`);
+        document.querySelector('#img-ejemplo').setAttribute("src",`${newprodImg.value}`);
+        document.querySelector('#stock-ejemplo').innerText=(`Stock: ${newprodStock.value*1}`);
+    }
 }
 
-// newprodID = document.querySelector('#newprod-id');
-// newprodNombre = document.querySelector('#newprod-nombre');
-// newprodPrecio = document.querySelector('#newprod-precio');
-// newprodImg = document.querySelector('#newprod-img');
-// newprodCat = document.querySelector('#newprod-categoria');
-// newprodStock = document.querySelector('#newprod-stock');
+function almacenarProductoNuevo(){
+    let producto = new Producto (newprodID.value*1 , newprodNombre.value , newprodPrecio.value*1 , newprodImg.value , newprodCat.value , newprodStock.value*1);
+    producto=JSON.stringify(producto);
+    let confirmar = confirm('¿Desea añadir el nuevo producto?');
+    if (confirmar){
+        productDB.push(JSON.parse(producto));
+    } 
+    respaldoDB();
+}
+
+function eliminarProductoDB(index) {
+    let confirmar = confirm("¿Está seguro que desea eliminar este producto?");
+    if (confirmar) {
+        productDB.splice(index,1);
+
+        productDB.forEach(function(el,index){
+            el.id = index;
+        })
+    }
+    respaldoDB();
+}
+
 
 function confirmarNuevoProducto(){
     let prueba = new Producto (8,"Alameda Cripi",4600,"assets/img/img8.webp","clara",10);

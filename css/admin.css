@@ -68,3 +68,19 @@
     justify-content: center;
     padding-top: 2vw;
 }
+
+#img-ejemplo{
+    max-height: 250px; 
+    border-radius: 5px;
+}
+
+.input-group-text{
+    border-top-right-radius: 0px ;
+    border-bottom-right-radius: 0px;
+}
+
+.botones-card{
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+}

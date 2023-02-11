@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <script src="https://kit.fontawesome.com/9bf55c7eb1.js" crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
   </script>
@@ -19,6 +18,7 @@
       emailjs.init("udxHcLdMJzRYLUe_w");
     })();
   </script>
+  <link rel="icon" href="assets/img/cerveza.png">
 
 
 </head>
@@ -132,7 +132,10 @@
           <div class="cont-edicion-productos">
             <div class="form-editar-prod">
               <form action="" class="needs-validation form-editar-prod">
-                <input type="text" class="form-control form-edit" id="newprod-id" placeholder="ID" value="" disabled>
+                <div class="input-group has-validation">
+                  <span class="input-group-text">ID</span>
+                  <input type="text" class="form-control form-edit" id="newprod-id" placeholder="#" value="" disabled>
+                </div>  
                 <input type="text" class="form-control form-edit" id="newprod-nombre" placeholder="Nombre" required>
                 <input type="text" class="form-control form-edit" id="newprod-precio" placeholder="Precio" required>
                 <input type="text" class="form-control form-edit" id="newprod-img" placeholder="Link de Imagen (300 x 300)" required>
@@ -172,7 +175,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-warning" onclick="almacenarProductoNuevo()">Añadir Producto</button>
           </div>
         </div>
       </div>
