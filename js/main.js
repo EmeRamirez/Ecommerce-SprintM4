@@ -6,6 +6,8 @@ let listaCarritoMap;
 
 
 
+
+
 //Funcion para añadir formato CLP a los datos numéricos
 const formatoCL = new Intl.NumberFormat("es-CL", {
     style: "currency",
@@ -17,28 +19,40 @@ const formatoCL = new Intl.NumberFormat("es-CL", {
 
 //Al cargar la página añade la tienda al arreglo y le inserta los productos
 $(document).ready(function () {
-    
-    tienda = new Tienda('Tienda');
-
-    if (JSON.parse(localStorage.getItem("arr-carrito")) != null) {
-        listaCarrito = JSON.parse(localStorage.getItem("arr-carrito"));
-    }
-
-    if (JSON.parse(localStorage.getItem("arr-database")) != null) {
-        productDB = JSON.parse(localStorage.getItem("arr-database"));
-    }
 
 
+    //Este fetch trae la información del archivo .json y lo almacena en el arreglo 'productDB'
+    fetch('data/bd.json')
+    .then(response => response.json())
+    .then(json => {
+        // console.log(json);
+        productDB=json.productos;
+        console.log(productDB);
+    })
+    .then(()=>{
+            tienda = new Tienda('Tienda');
 
-    productDB.forEach(el => {
-        let producto = new Producto(el.id, el.nombre, el.precio, el.img, el.cat, el.stock);
-        tienda.setProductos(producto);
-    });
+        if (JSON.parse(localStorage.getItem("arr-carrito")) != null) {
+            listaCarrito = JSON.parse(localStorage.getItem("arr-carrito"));
+        }
 
-    listaCarritoMap = tienda.getProductos().map(object => ({ ...object }));
-    crearCards();
-    calcularMonto();
-    renderModal();
+        if (JSON.parse(localStorage.getItem("arr-database")) != null) {
+            productDB = JSON.parse(localStorage.getItem("arr-database"));
+        }
+
+
+        productDB.forEach(el => {
+            let producto = new Producto(el.id, el.nombre, el.precio, el.img, el.cat, el.stock);
+            tienda.setProductos(producto);
+        });
+
+        listaCarritoMap = tienda.getProductos().map(object => ({ ...object }));
+        crearCards();
+        calcularMonto();
+        renderModal();
+    })
+    .catch (err => console.log(err));
+  
 });
 
 
