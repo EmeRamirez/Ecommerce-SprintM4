@@ -316,3 +316,16 @@ function getSelectedValue() {
       }
     })
   }
+  function getSelectRange(){
+    const selectRange = document.getElementById('range-filter').valueAsNumber;
+
+    tienda.getProductos().forEach(el => {
+        if (selectRange >= el.precio){
+            document.querySelector(`.producto${el.id}`).style.display='block'
+        }else {
+            document.querySelector(`.producto${el.id}`).style.display='none'
+        }
+        
+    } )
+
+} 
