@@ -82,15 +82,12 @@
           <div class="cont-edicion-productos">
             <div class="form-editar-prod">
               <form action="" class="needs-validation form-editar-prod">
-                <input type="text" class="form-control form-edit" id="prod-id" placeholder="ID" value="ID 8" disabled>
+                <input type="text" class="form-control form-edit" id="prod-id" placeholder="ID" value="" disabled>
                 <input type="text" class="form-control form-edit" id="prod-nombre" placeholder="Nombre" required>
-                <input type="text" class="form-control form-edit" id="prod-precio" placeholder="Precio" required>
+                <input type="number" class="form-control form-edit" id="prod-precio" placeholder="Precio" required>
                 <input type="text" class="form-control form-edit" id="prod-img" placeholder="Link de Imagen (300 x 300)" required>
-                <select class="form-select form-edit" id="prod-categoria" placeholder="Categoria" required>
-                  <option value="">Seleccione un categoría</option>
-                  <option value="clara">Clara</option>
-                  <option value="oscura">Oscura</option>
-                <input type="text" class="form-control form-edit" id="prod-stock" placeholder="Stock" required>
+                <input type="text" class="form-control form-edit" id="prod-etiquetas" placeholder="Etiquetas" required>
+                <input type="number" class="form-control form-edit" id="prod-stock" placeholder="Stock" required>
                 <p id="requerido" class="d-none">Debe completar los campos requeridos</p>
               </form>
               <div class="btn-editar-modal">
@@ -103,7 +100,6 @@
               <div class="info-producto">
                 <h6>Información Actual</h6>
                 <section class="seccion-info-producto">
-                  <p><b>ID:</b> 8</p>
                   <p><b>Nombre:</b> "Hasta Pronto Micro Dosis"</p>
                   <p><b>Precio:</b> $4.200</p>
                   <p><b>Link Imagen:</b> "http://linkdelafoto.com/imagen.jpeg"</p>
@@ -113,9 +109,8 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-warning" onclick="respaldoDB()">Guardar Cambios</button>
+          <div class="modal-footer" id="footer-editar">
+            <!-- ESTOS BOTONES SE CREAN MEDIANTE JS -->
           </div>
         </div>
       </div>
@@ -139,10 +134,7 @@
                 <input type="text" class="form-control form-edit" id="newprod-nombre" placeholder="Nombre" required>
                 <input type="text" class="form-control form-edit" id="newprod-precio" placeholder="Precio" required>
                 <input type="text" class="form-control form-edit" id="newprod-img" placeholder="Link de Imagen (300 x 300)" required>
-                <select class="form-select form-edit" id="newprod-categoria" placeholder="Categoria" required>
-                  <option value="">Seleccione un categoría</option>
-                  <option value="clara">Clara</option>
-                  <option value="oscura">Oscura</option>
+                <input type="text" class="form-control form-edit" id="newprod-etiquetas" placeholder="Etiquetas" required>
                 <input type="text" class="form-control form-edit" id="newprod-stock" placeholder="Stock" required>
                 <p id="requerido" class="d-none">Debe completar los campos requeridos</p>
               </form>
@@ -175,7 +167,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-warning" onclick="almacenarProductoNuevo()">Añadir Producto</button>
+            <button type="button" class="btn btn-warning" id="btnCrearProd">Añadir Producto</button>
           </div>
         </div>
       </div>
@@ -199,10 +191,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/lib/jquery-3.6.3.min.js"></script>
-  <script src="class/TiendaES6.js"></script>
-  <script src="class/ProductoES6.js"></script>
-  <script src="js/mainAdmin.js"></script>
-
+  <script type="module" src="js/mainAdmin.js"></script>
+  <script src="funcionesAdmin.js"></script>
 </body>
 
 </html>
