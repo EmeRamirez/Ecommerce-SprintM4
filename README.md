@@ -1,5 +1,5 @@
 # E-Commerce
-Proyecto de tienda virtual para estudiar POO en JS.
+Administración de productos para e-commerce con API REST
 
 <h2>Talento Digital 2023 {</h2>
     <li>Eduardo Barría</li>
