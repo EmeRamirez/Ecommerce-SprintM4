@@ -27,9 +27,13 @@
 
 .lista-carrito {
     display: grid;
-    grid-template-columns: 18% 50% 12% 15% 5%;
+    grid-template-columns: 18% 48% 12% 15% 8%;
     align-items: center;
     padding-bottom: 5px;
+}
+
+.btnmod{
+    color:wheat
 }
 
 .fa-trash:hover{
@@ -69,6 +73,10 @@
     margin: 1vw;
 }
 
+#input-cant{
+    width: 80%;
+}
+
 .btn-pagar-modal {
     display: flex;
     justify-content: center;
@@ -105,3 +113,22 @@
     padding-left: 1.2vw;
 }
 
+#subcontenedor-filtros{
+    background-color: #FFC107;
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    padding: 25px;
+    margin-top: 2vw;
+    margin-left: 14vw;
+    margin-right: 14vw;
+    border-radius: 15px; 
+}
+
+.seccion-tienda{
+    padding-top: 0 !important;
+}
+
+.animate__heartBeat{
+    --animate-duration: 0.7s;
+}

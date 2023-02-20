@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://kit.fontawesome.com/9bf55c7eb1.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+  </script>
+  <script type="text/javascript">
+    (function () {
+      emailjs.init("udxHcLdMJzRYLUe_w");
+    })();
+  </script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html"><img src="assets/img/logo.png" alt=""></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collection-sort">
+         
+        </div>
+        <div>
+          <a type="button" href="indexadmin.html" class="btn btn-warning">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+          </a>
+          <!--Boton Modal-->
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Resumen de tu
+            Compra</h1>
+          <button type="button" class="btn-close" onclick="ocultarForm()" data-bs-dismiss="modal"
+            aria-label="Close"></button>
+        </div>
+        <div class="modal-body resumen-carrito">
+          <!-- AQUI SE VAN AGREGANDO LOS PRODUCTOS DEL CARRO -->
+        </div>
+        <div class="mensaje-stock d-none">No hay suficientes productos en
+          stock</div>
+
+        <div class="modal-footer">
+          <div id="totales-modal">
+            <h4 id="cont-total">Total:</h4>
+          </div>
+          <div>
+            <button type="button" class="btn btn-danger" id=btnVaciar><i
+                class="fa-solid fa-trash"></i></button>
+            <button type="button" onclick="mostrarForm()" class="btn
+                btn-warning">Continuar</button>
+          </div>
+        </div>
+        <div class="cont-formulario-modal d-none" novalidate>
+          <div>
+            <form action="" class="needs-validation">
+              <input type="text" class="form-control" id="form-nombre" placeholder="Nombre" required>
+              <input type="text" class="form-control" id="form-fono" placeholder="Teléfono" required>
+              <input type="text" class="form-control" id="form-email" placeholder="Email" required>
+              <input type="text" class="form-control" id="form-direccion" placeholder="Direccion" required>
+              <p id="requerido" class="d-none">Debe completar los campos
+                requeridos</p>
+            </form>
+          </div>
+          <div class="btn-pagar-modal">
+            <button class="btn btn-warning boton-form">Pagar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section id="contenedor-filtros">
+      <div id="subcontenedor-filtros">
+        <div>
+          <h6>Filtrar por texto:</h6>
+          <input type="text-area" id="search-input" placeholder="Búsqueda" >
+        </div>
+        <div id="cont-filtro-cat">
+          <h6>Filtrar por Categoria:</h6>
+            <select id="etiq-list">
+              <option selected="selected">Selecciona un producto</option>
+              <option value="clara">Clara</option>
+              <option value="oscura">Oscura</option>
+              <option value="ipa">Ipa</option>
+              <option value="ale">Ale</option>
+              <option value="lager">Lager</option>
+              <option value="ambar">Ambar</option>
+              <option value="stout">Stout</option>
+              <option value="nacional">Nacional</option>
+              <option value="importada">Importada</option>
+            </select>
+        </div>
+        <div id="cont-filtro-rango">
+          <h6>Filtrar por Precio</h6>
+          <input type="range" min="2800" id="range-filter" max="20000" step="any" list="tickmarks">
+          <datalist id="tickmarks">
+            <option value="2800">
+            <option value="5000">
+            <option value="10000">
+            <option value="20000">
+          </datalist>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 seccion-tienda">
+      <div class="container px-4 px-lg-5 mt-5">
+        <div id="contenedor-general" class="row gx-4 gx-lg-5 row-cols-2
+            row-cols-md-3 row-cols-xl-4 justify-content-center">
+        </div>
+      </div>
+
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/lib/jquery-3.6.3.min.js"></script>
+  
+  <script type="module" src="js/main.js"></script>
+  <script src="js/funciones.js"></script>
+
+</body>
+
+</html>

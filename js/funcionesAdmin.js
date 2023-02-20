@@ -1,9 +1,10 @@
+
 //Rutas del DOM
 const prodID = document.querySelector('#prod-id');
 const prodNombre = document.querySelector('#prod-nombre');
 const prodPrecio = document.querySelector('#prod-precio');
 const prodImg = document.querySelector('#prod-img');
-const prodEtiq = document.querySelector('#prod-etiqueta');
+const prodEtiq = document.querySelector('#prod-etiquetas');
 const prodStock = document.querySelector('#prod-stock');
 
 const newprodID = document.querySelector('#newprod-id');
@@ -41,9 +42,10 @@ function validarForm() {
 };
 
 
+
 //Funcion para crear cards en el DOM
 
-function crearCards(arr){
+function crearCardsAdmin(arr){
     arr.forEach(el => {
         $('#contenedor-general').append(`
             <div class="col mb-5 producto${el.id}" >
@@ -63,12 +65,13 @@ function crearCards(arr){
                         <p id="stock${el.id}" class="stock">Stock: ${el.stock}</p> 
                             <div class="text-center botones-card"><button id="boton-ql${el.id}" type="button" class="btn btn-warning mt-auto
                             btnEditar" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#"
-                                    value="${el.id}">Editar</button><button type="button" class="btn btn-danger btnEliminar"
+                                    value="${el.id}">Editar</button><button type="button" class="btn btn-danger btnEliminar${el.id}"
                                     value="${el.id}"><i class="fa-solid fa-trash"></i></button></div>
                         </div>
                 </div>
             </div>
         `);
+
     })
 }
 
@@ -88,5 +91,33 @@ function crearBotones(id){
     document.querySelector('#footer-editar').innerHTML=`
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
     <button type="button" class="btn btn-warning btnCambios" value="${id}">Guardar Cambios</button>`
+}
+
+
+
+function renderEditar(productos,id){
+    let found = productos.find(el => el.id == id)
+
+console.log(found);
+
+    prodID.value = `ID: ${found.id}`;  
+    prodNombre.value = found.nombre;
+    prodPrecio.value = found.precio;
+    prodImg.value = found.link;
+    prodEtiq.value = found.etiqueta;
+    prodStock.value = found.stock;
+
+    let nombre = document.getElementById('form-nombre');
+    let precio = document.getElementById('form-precio');
+    let img= document.getElementById('form-img');
+    let categoria = document.getElementById('form-etiquetas');
+    let stock = document.getElementById('form-stock');
+
+    nombre.innerText = "Nombre: " + '' + found.nombre;    
+    precio.innerText = "Precio: $" + '' + found.precio;
+    img.innerText = "Link Imagen: " + found.link;
+    categoria.innerText = "Etiquetas: " + found.etiqueta;
+    stock.innerText = "Stock: " + found.stock;
+    
 }
 

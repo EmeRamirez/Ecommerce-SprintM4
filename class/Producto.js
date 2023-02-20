@@ -18,6 +18,14 @@ export class Producto{
         
     }
 
+    getProductoByID(id){
+        fetch(`https://bsite.net/metalflap/td-producto/${id}`)
+            .then(res => res.json())
+            .then,(data => {
+                return data
+            })
+    }
+
     crearProducto(producto){
         fetch('https://bsite.net/metalflap/td-producto',
         {method:'POST',
@@ -27,11 +35,11 @@ export class Producto{
         }, 
         body: JSON.stringify(producto)})
         .then(alert('Producto creado exitosamente'))
-        // .then(
-        //     setTimeout(() => {
-        //         document.location.reload()
-        //     }, 1800)
-        // )
+        .then(
+            setTimeout(() => {
+                document.location.reload()
+            }, 1800)
+        )
         .catch (err => console.log(err))
 
     }
