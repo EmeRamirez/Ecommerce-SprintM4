@@ -162,9 +162,9 @@ document.querySelector('.boton-form').addEventListener('click',() =>{
     if (!carrito.getItems().length == 0) {
         if (validarForm()) {
             ajustarStock();
-            setTimeout(() => {
-                document.location.reload()
-            }, 3000);
+            // setTimeout(() => {
+            //     document.location.reload()
+            // }, 3000);
         } else {
             document.querySelector('#requerido').classList.remove('d-none');
             setTimeout(() => {
@@ -178,9 +178,12 @@ document.querySelector('.boton-form').addEventListener('click',() =>{
 
 
 //Esta función ajusta el stock con la base de datos (API Fetch) una vez realizada la compra
-function ajustarStock(){
-    console.log('Acá se reduce el stock');
+async function ajustarStock(){
+    let productos = await carrito.getItems()
+       await carrito.setInventario(productos);
+       respaldoLocal();
 }
+
 
 
 //Funciones de filtro ====================================================
@@ -267,4 +270,4 @@ searchInput.addEventListener("input", function() {
 
 //=========================================
 
-//Falta completar la función ajustar Stock
+//Falta activar el envío del mail al terminar la compra

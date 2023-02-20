@@ -80,4 +80,39 @@ export class Carrito{
     getItembyID(id){
         return this.items.find(el => el.id == id)
     }
+
+    setInventario(arr){
+        arr.forEach(el => {
+            
+            let producto = {
+                id: el.id,
+                nombre: el.nombre,
+                precio: el.precio,
+                link: el.link,
+                stock: el.stock - el.cantidad,
+                etiqueta: el.etiqueta,
+                descripcion: el.descripcion,
+                idCategoria: 13,
+                idSucursal: 3,
+            }
+    
+            console.log(JSON.stringify(producto));
+    
+            fetch('https://bsite.net/metalflap/td-producto',
+            {method: 'PUT', 
+            body: JSON.stringify(producto),
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+            })
+            .then(
+                this.vaciarCarrito()
+            )
+            .then(
+                setTimeout(() => {
+                    document.location.reload()
+                }, 1800)
+            )
+            .catch (err => console.log(err))
+
+        })
+    }
 } 

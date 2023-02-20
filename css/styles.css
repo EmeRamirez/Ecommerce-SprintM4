@@ -132,3 +132,39 @@
 .animate__heartBeat{
     --animate-duration: 0.7s;
 }
+
+@media only screen and (max-width: 1027px) {
+
+    #subcontenedor-filtros{
+       gap: 50px;
+       margin-top: 2vw;
+       margin-left: 8vw;
+       margin-right: 8vw;
+    }
+   }
+   
+   @media only screen and (max-width: 780px) {
+       #subcontenedor-filtros{
+           display: flex;
+           justify-content: center;
+           gap: 30px;
+           padding: 25px;
+           margin-top: 2vw;
+           margin-left: 1vw;
+           margin-right: 1vw;
+        }
+   }
+   
+   @media only screen and (max-width: 620px) {
+       #subcontenedor-filtros{
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+           gap: 30px;
+           padding: 25px;
+           margin-top: 2vw;
+           margin-left: 20vw;
+           margin-right: 20vw;
+        }
+   }
