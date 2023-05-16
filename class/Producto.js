@@ -2,12 +2,12 @@ export class Producto{
     constructor() {
     }
     obtenerProductos(){
-    return fetch('https://bsite.net/metalflap/td-producto')
+    return fetch('https://slifer.bsite.net/td-producto')
         .then(response => response.json())
         .then(data => {
             const listacervezas= []
             data.forEach(chela => {
-                if (chela.idSucursal == 3){
+                if (chela.idSucursal == 2){
                     listacervezas.push(chela)
                     
                 }
@@ -19,7 +19,7 @@ export class Producto{
     }
 
     getProductoByID(id){
-        fetch(`https://bsite.net/metalflap/td-producto/${id}`)
+        fetch(`https://slifer.bsite.net/td-producto/${id}`)
             .then(res => res.json())
             .then,(data => {
                 return data
@@ -27,7 +27,7 @@ export class Producto{
     }
 
     crearProducto(producto){
-        fetch('https://bsite.net/metalflap/td-producto',
+        fetch('https://slifer.bsite.net/td-producto',
         {method:'POST',
          headers: {
             'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export class Producto{
     }
 
     borrarProducto(id){
-        fetch(`https://bsite.net/metalflap/td-producto/${id}`,
+        fetch(`https://slifer.bsite.net/td-producto/${id}`,
         {method: 'DELETE', 
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
         })
@@ -69,13 +69,13 @@ export class Producto{
             stock: prodStock.value,
             etiqueta: prodEtiq.value,
             descripcion: "-",
-            idCategoria: 13,
-            idSucursal: 3,
+            idCategoria: 12,
+            idSucursal: 2,
         }
 
         console.log(JSON.stringify(producto));
 
-        fetch('https://bsite.net/metalflap/td-producto',
+        fetch('https://slifer.bsite.net/td-producto',
         {method: 'PUT', 
         body: JSON.stringify(producto),
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }

@@ -35,8 +35,8 @@ crear.addEventListener("click", function () {
                 stock: newprodStock.value * 1,
                 etiqueta: newprodEtiq.value,
                 descripcion: "-",
-                idCategoria: 13,
-                idSucursal: 3,
+                idCategoria: 12,
+                idSucursal: 2,
             })
     } else {
         alert('Complete todos los campos')

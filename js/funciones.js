@@ -7,6 +7,9 @@ const formatoCL = new Intl.NumberFormat("es-CL", {
     useGrouping: true,
 });
 
+let precio = 1000;
+
+formatoCL.format(precio*3);
 
 //Funcion para validar formularios
 function validarForm() {

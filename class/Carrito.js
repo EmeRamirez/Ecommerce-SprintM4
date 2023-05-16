@@ -23,8 +23,8 @@ export class Carrito{
                 link : producto.link,
                 stock : producto.stock,
                 descripcion : producto.descripcion,
-                idCategoria : 13,
-                idSucursal : 3
+                idCategoria : 12,
+                idSucursal : 2
             }
 
         let existe = false;
@@ -92,13 +92,13 @@ export class Carrito{
                 stock: el.stock - el.cantidad,
                 etiqueta: el.etiqueta,
                 descripcion: el.descripcion,
-                idCategoria: 13,
-                idSucursal: 3,
+                idCategoria: 12,
+                idSucursal: 2,
             }
     
             console.log(JSON.stringify(producto));
     
-            fetch('https://bsite.net/metalflap/td-producto',
+            fetch('https://slifer.bsite.net/td-producto',
             {method: 'PUT', 
             body: JSON.stringify(producto),
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }

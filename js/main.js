@@ -18,6 +18,7 @@ window.onload = () => {
 
     productos.obtenerProductos()
         .then(productos => {
+            console.log(productos);
             crearCards(productos)
         })
         
@@ -269,5 +270,3 @@ searchInput.addEventListener("input", function() {
 });
 
 //=========================================
-
-//Falta activar el envío del mail al terminar la compra
